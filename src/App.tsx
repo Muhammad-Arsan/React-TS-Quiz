@@ -59,6 +59,7 @@ function App() {
 
   return (
     <div className="App">
+      <a href="https://github.com/Muhammad-Arsan/React-TS-Quiz">Code Link</a>
       <h4 className="text-center mt-3">React-Quiz</h4>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button onClick={startQuiz} className="btn btn-primary mt-3 px-4">
