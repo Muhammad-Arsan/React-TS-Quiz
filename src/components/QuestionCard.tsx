@@ -1,5 +1,5 @@
 import React from "react";
-import { AnswerObject } from "../App";
+import { AnswerObject } from "./Start";
 type Props = {
   totalQuestion: number;
   questionNo: number;
@@ -37,10 +37,10 @@ const QuestionCard: React.FC<Props> = ({
             <button
               disabled={userAnswer ? true : false}
               value={answer}
-              onClick={callback}
+              onClick={(e) => callback(e)}
               className="answer"
             >
-              <span dangerouslySetInnerHTML={{ __html: answer }} />
+              <span id={answer} dangerouslySetInnerHTML={{ __html: answer }} />
             </button>
           </div>
         ))}
