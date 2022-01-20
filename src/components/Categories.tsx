@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { shuffleArray } from "../Utils";
 // import { fetchQuestions } from "../Api";
 import { Category, Numbers } from "../Data/Category";
+// import { amountfunc } from "./Start";
+import { setNumber } from "./data";
 // type propTypes = {
 //   number: number;
 //   category: string;
@@ -19,13 +21,14 @@ export type Question = {
 };
 export type QuestionState = Question & { answers: string[] };
 export let data: any = {};
+export let amount: number;
 export const fetchQuestions = async (
-  number: any,
+  amount: any,
   category: any,
   difficulty: any
 ) => {
   data = await axios.get(
-    `https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}`
+    `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`
   );
 
   console.log("New Data:", data);
@@ -38,18 +41,18 @@ export const fetchQuestions = async (
   }));
 };
 
-const Categories = () => {
-  const [number, setNumbers] = useState<any>(10);
+const Categories: React.FC = () => {
+  const [amount, setAmount] = useState<any>(10);
   const [category, setCategory] = useState<string>("");
   const [difficulty, setDifficulty] = useState<string>("");
-  const [error, setErrors] = useState<any>(false);
+  // const [error, setErrors] = useState<any>(false);
   let navigate = useNavigate();
-
+  console.log("Amount", amount);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log("func called");
     //     fetchQuestions(10, "Sports", "easy");
-    fetchQuestions(number, category, difficulty);
+    fetchQuestions(amount, category, difficulty);
     navigate("/start");
   };
   return (
@@ -64,8 +67,11 @@ const Categories = () => {
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  value={number}
-                  onChange={(e) => setNumbers(e.target.value)}
+                  value={amount}
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                    setNumber(Number(e.target.value));
+                  }}
                 >
                   {Numbers.map((num: any) => (
                     <option key={num.value} value={num.value}>
